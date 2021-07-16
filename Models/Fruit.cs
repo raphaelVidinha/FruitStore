@@ -18,7 +18,7 @@ namespace FruitStore.Models {
         public string Image { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório.")]
-        public string StockQuantity { get; set; }
+        public int StockQuantity { get; set; }
 
         [Required(ErrorMessage = "Este campo é obrigatório.")]
         public decimal Price { get; set; }

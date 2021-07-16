@@ -1,7 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace FruitStore.Models {
-    public class Fruit{
+    public class Fruit
+    {
         [Key]
         public int Id { get; set; }
 

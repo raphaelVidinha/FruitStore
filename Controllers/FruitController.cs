@@ -68,7 +68,7 @@ namespace FruitStore.Controllers
             {
                 await _context.SaveChangesAsync();
             }
-            catch (DbUpdateConcurrencyException ex)
+            catch (DbUpdateConcurrencyException)
             {
                 if (await FruitExists(id) != true)
                     return NotFound();

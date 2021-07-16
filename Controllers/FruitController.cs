@@ -50,11 +50,16 @@ namespace FruitStore.Controllers
 
         [HttpPut]
         [Route("id:int")]
-        public async Task<ActionResult<Fruit>> PutTodoItem(int id, Fruit fruit)
+        public async Task<ActionResult<Fruit>> Put(int id, Fruit fruit)
         {
             if (id != fruit.Id)
             {
                 return BadRequest();
+            }
+
+             if(!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
             }
 
             _context.Entry(fruit).State = EntityState.Modified;
@@ -66,13 +71,7 @@ namespace FruitStore.Controllers
             catch (DbUpdateConcurrencyException ex)
             {
                 if (await FruitExists(id) != true)
-                {
                     return NotFound();
-                }
-                else
-                {
-                    throw ex;
-                }
             }
 
             return fruit;

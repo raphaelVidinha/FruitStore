@@ -10,6 +10,7 @@ namespace FruitStore.Data {
         }
 
         public DbSet<Fruit> Fruits { get; set; }
-
+        public DbSet<Item> Items { get; set; }
+        public DbSet<Cart> Carts { get; set; }
     }
 }

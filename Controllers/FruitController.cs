@@ -5,6 +5,7 @@ using Microsoft.EntityFrameworkCore;
 
 using FruitStore.Data;
 using FruitStore.Models;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FruitStore.Controllers
 {
@@ -20,12 +21,14 @@ namespace FruitStore.Controllers
 
         [HttpGet]
         [Route("")]
+        [Authorize]
         public async Task<ActionResult<List<Fruit>>> Get(){
             return await _context.Fruits.ToListAsync();
         }
 
         [HttpPost]
         [Route("")]
+        [Authorize]
         public async Task<ActionResult<Fruit>> Post(Fruit model){
             if(!ModelState.IsValid)
             {
@@ -39,6 +42,7 @@ namespace FruitStore.Controllers
 
         [HttpGet]
         [Route("id:int")]
+        [Authorize]
         public async Task<ActionResult<Fruit>> GetById(int id)
         {
             return await _context.Fruits.AsNoTracking().FirstOrDefaultAsync(x => x.Id.Equals(id));
@@ -50,6 +54,7 @@ namespace FruitStore.Controllers
 
         [HttpPut]
         [Route("id:int")]
+        [Authorize]
         public async Task<ActionResult<Fruit>> Put(int id, Fruit fruit)
         {
             if (id != fruit.Id)
@@ -79,6 +84,7 @@ namespace FruitStore.Controllers
 
         [HttpDelete]
         [Route("id:int")]
+        [Authorize]
         public async Task<ActionResult<bool>> Delete(int id)
         {
             var fruit = await _context.Fruits.FirstOrDefaultAsync(x => x.Id.Equals(id));

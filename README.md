@@ -1,5 +1,6 @@
 # FruitStore
 Api CRUD de Frutas com autorização em JWT.
+O banco de dados é o In Memory, o que significa que toda vez que a aplicação parar de rodar, os dados serão perdidos.
 ### instruções:
 Após clonar o projeto, com o terminal vá até a raiz do projeto e rode os comandos abaixo para instalar as dependências e rodar o projeto respectivamente;
 De preferência um de cada vez;

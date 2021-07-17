@@ -12,7 +12,7 @@ namespace FruitStore.Controllers
     [Route("v1/login")]
     public class LoginController : ControllerBase
     {
-        [HttpPost]
+        [HttpGet]
         [Route("")]
         public async Task<ActionResult<dynamic>> Authenticate(string username, string password)
         {
@@ -32,7 +32,8 @@ namespace FruitStore.Controllers
             // Retorna os dados
             return new
             {
-                token = token
+                token = token,
+                role = user.Role
             };
         }
 

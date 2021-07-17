@@ -16,7 +16,7 @@ Para acessar o swagger é: https://localhost:5001/swagger/index.html
 ### Instruções de uso da API com SWAGGER:
 Ao acessar a api através do swagger faça conforme abaixo:
 - Faça login com um usuário válido, na área Login [post]
-- Por default, após clicar em 'try', aparecerá todo o objeto de user com 'id', remova a linha do id e preencha os valore de 'username' e 'password' com admin e admin por exemplo
+- Preencha os valore de 'username' e 'password' com admin e admin por exemplo
 - Pegue o token, sem as aspas que retornou após login efetuado com sucesso (status code 200)
 - No topo da página do swagger possui um botão 'Authorization', clique nele e abrirá uma modal
 - Nesta modal, no campo 'Value' adicione a palavra Bearer e o token, conforme exemplo a seguir sem as aspas: "Bearer TOKEN"

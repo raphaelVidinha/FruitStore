@@ -1,13 +1,10 @@
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-using FruitStore.Data;
 using FruitStore.Models;
-using Microsoft.AspNetCore.Authorization;
 using FruitStore.Repositories;
 using FruitStore.Services;
+using Microsoft.AspNetCore.Authorization;
 
 namespace FruitStore.Controllers
 {
@@ -17,10 +14,10 @@ namespace FruitStore.Controllers
     {
         [HttpPost]
         [Route("")]
-        public async Task<ActionResult<dynamic>> Authenticate(User model)
+        public async Task<ActionResult<dynamic>> Authenticate(string username, string password)
         {
             // Recupera o usuário
-            var user = UserRepository.Get(model.Username, model.Password);
+            var user = UserRepository.Get(username, password);
 
             // Verifica se o usuário existe
             if (user == null)
@@ -37,6 +34,22 @@ namespace FruitStore.Controllers
             {
                 token = token
             };
+        }
+
+        [HttpGet]
+        [Route("getUserName")]
+        [Authorize]
+        public string GetUserName()
+        {
+            return User.Identity.Name;
+        }
+
+        [HttpGet]
+        [Route("verifyRoleUser")]
+        [Authorize]
+        public bool VerifyRoleUser(string role)
+        {
+            return User.IsInRole(role);
         }
     }
 }

@@ -1,3 +1,4 @@
+using System.IO;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
@@ -6,6 +7,7 @@ using Microsoft.EntityFrameworkCore;
 using FruitStore.Data;
 using FruitStore.Models;
 using Microsoft.AspNetCore.Authorization;
+using System.Net.Http.Headers;
 
 namespace FruitStore.Controllers
 {
@@ -22,14 +24,16 @@ namespace FruitStore.Controllers
         [HttpGet]
         [Route("")]
         [Authorize]
-        public async Task<ActionResult<List<Fruit>>> Get(){
+        public async Task<ActionResult<List<Fruit>>> Get()
+        {
             return await _context.Fruits.ToListAsync();
         }
 
         [HttpPost]
         [Route("")]
         [Authorize]
-        public async Task<ActionResult<Fruit>> Post(Fruit model){
+        public async Task<ActionResult<Fruit>> Post(Fruit model)
+        {
             if(!ModelState.IsValid)
             {
                 return BadRequest(ModelState);
@@ -97,6 +101,35 @@ namespace FruitStore.Controllers
             await _context.SaveChangesAsync();
 
             return true;
+        }
+
+        [HttpPost]
+        [Route("upload")]
+        public async Task<IActionResult> uploadImage()
+        {
+            try
+            {
+                var file = Request.Form.Files[0];
+                var folderName = Path.Combine("Resources", "Images");
+                var pathToSave = Path.Combine(Directory.GetCurrentDirectory(), folderName);
+
+                if (file.Length > 0)
+                {
+                    var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
+                    var fullPath = Path.Combine(pathToSave, fileName.Replace("\"", " ").Trim());
+
+                    using(var stream = new FileStream(fullPath, FileMode.Create)){
+                        file.CopyTo(stream);
+                    }
+                }
+
+                return Ok();
+            }
+            catch (System.Exception ex)
+            {
+                
+                return this.StatusCode(500);
+            }
         }
     }
 }
